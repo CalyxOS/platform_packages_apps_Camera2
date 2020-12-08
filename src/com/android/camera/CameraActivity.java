@@ -22,6 +22,7 @@ import android.animation.Animator;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.KeyguardManager.KeyguardDismissCallback;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -1335,7 +1336,8 @@ public class CameraActivity extends QuickActivity
 
     private void removeItemAt(int index) {
         mDataAdapter.removeAt(index);
-        if (mDataAdapter.getTotalNumber() > 0) {
+        final int placeholders = mSecureCamera ? 1 : 0;
+        if (mDataAdapter.getTotalNumber() > placeholders) {
             showUndoDeletionBar();
         } else {
             // If camera preview is the only view left in filmstrip,
@@ -1939,7 +1941,7 @@ public class CameraActivity extends QuickActivity
         }
         if (!mHasCriticalPermissions || (mSettingsManager.getBoolean(
                 SettingsManager.SCOPE_GLOBAL, Keys.KEY_RECORD_LOCATION) &&
-                (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+                (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                    != PackageManager.PERMISSION_GRANTED) &&
                 !mSettingsManager.getBoolean(SettingsManager.SCOPE_GLOBAL,
                     Keys.KEY_HAS_SEEN_PERMISSIONS_DIALOGS))) {
@@ -2513,7 +2515,32 @@ public class CameraActivity extends QuickActivity
         UsageStatistics.instance().controlUsed(
                 eventprotos.ControlEvent.ControlType.OVERALL_SETTINGS);
         Intent intent = new Intent(this, CameraSettingsActivity.class);
-        startActivity(intent);
+        if (!isKeyguardLocked()) {
+            startActivity(intent);
+        } else {
+            /* Need to explicitly request keyguard dismissal for PIN/pattern
+             * entry to show up directly. */
+            requestDismissKeyguard(
+                /* requesting Activity: */ CameraActivity.this,
+                new KeyguardDismissCallback() {
+                    @Override
+                    public void onDismissSucceeded() {
+                        /* Need to use launchActivityByIntent() so that going
+                         * back from settings after unlock leads to main
+                         * activity instead of dismissing camera entirely. */
+                        launchActivityByIntent(intent);
+                    }
+                    @Override
+                    public void onDismissError() {
+                        Log.e(TAG, "Keyguard dismissal failed.");
+                    }
+                    @Override
+                    public void onDismissCancelled() {
+                        Log.d(TAG, "Keyguard dismissal canceled.");
+                    }
+                }
+            );
+        }
     }
 
     @Override
