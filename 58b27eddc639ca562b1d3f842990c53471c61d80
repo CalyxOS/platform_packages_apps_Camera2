@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f31e73f_070b8d36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-11-11T12:10:20Z",
+      "side": 1,
+      "message": "Merged upstream 317434: Camera2: Request for ACCESS_FINE_LOCATION permission | https://review.lineageos.org/c/LineageOS/android_packages_apps_Camera2/+/317434\n\n",
+      "revId": "58b27eddc639ca562b1d3f842990c53471c61d80",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
