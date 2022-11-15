@@ -892,7 +892,7 @@ public class CameraActivity extends QuickActivity
                     if (!Storage.instance().isSessionUri(uri)) {
                         return;
                     }
-                    Optional<SessionItem> newData = SessionItem.create(CameraActivity.this, uri);
+                    Optional<SessionItem> newData = SessionItem.create(getApplicationContext(), uri);
                     if (newData.isPresent()) {
                         mDataAdapter.addOrUpdate(newData.get());
                     }
@@ -1609,9 +1609,9 @@ public class CameraActivity extends QuickActivity
 
         ContentResolver appContentResolver = mAppContext.getContentResolver();
         GlideFilmstripManager glideManager = new GlideFilmstripManager(mAppContext);
-        mPhotoItemFactory = new PhotoItemFactory(CameraActivity.this, glideManager, appContentResolver,
+        mPhotoItemFactory = new PhotoItemFactory(mAppContext, glideManager, appContentResolver,
               new PhotoDataFactory());
-        mVideoItemFactory = new VideoItemFactory(CameraActivity.this, glideManager, appContentResolver,
+        mVideoItemFactory = new VideoItemFactory(mAppContext, glideManager, appContentResolver,
               new VideoDataFactory());
         mCameraAppUI.getFilmstripContentPanel().setFilmstripListener(mFilmstripListener);
         if (mSettingsManager.getBoolean(SettingsManager.SCOPE_GLOBAL,
