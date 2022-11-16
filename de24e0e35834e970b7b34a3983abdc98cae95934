@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6c18d97_118171fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2022-11-16T15:21:43Z",
+      "side": 1,
+      "message": "Builds, runs, takes photos. App Manager confirms target SDK of 29 instead of 1000. I don\u0027t notice any functional difference so it should be fine.",
+      "revId": "de24e0e35834e970b7b34a3983abdc98cae95934",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
