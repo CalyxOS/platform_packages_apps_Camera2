@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b42d209_399e60cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2022-11-16T15:18:50Z",
+      "side": 1,
+      "message": "From a quick test it doesn\u0027t seem to *break* anything, and I am reasonably sure it may fix the deletion issue, but AOSP Camera has other issues that make it hard to confirm.",
+      "revId": "15e627c3762b978c1c57d71986737330f4468ed0",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
